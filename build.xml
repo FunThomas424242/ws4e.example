@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ANT build script for WebRCP template
+	Author: Daniel Mendler
+-->
+<project default="all" basedir=".">
+
+  <propertyfile file="project.properties"/>
+
+  <!-- Use ANT Contrib tasks -->
+  <taskdef resource="net/sf/antcontrib/antlib.xml">
+    <classpath>
+      <pathelement location="ant-contrib.jar"/>
+    </classpath>
+  </taskdef>
+
+  <!-- Make all -->
+  <target name="all" depends="clean,copy,sign,war" description="Make all"/>
+ 
+  <!-- Clean completely -->
+  <target name="clean" description="Clean completey">
+    <delete dir=".build"/>
+    <delete file="application.war"/>
+  </target>
+
+  <!-- Copy everything to build directory -->
+  <target name="copy" description="Copy everything to build directory">
+    <mkdir dir=".build"/>
+    <copy todir=".build">
+      <fileset dir=".">
+        <include name="WEB-INF/**"/>
+	<include name="webrcp.jar"/>
+	<include name="*.html"/>
+	<include name="*.jsp"/>
+      </fileset>
+    </copy>
+    <foreach param="path"
+             target="packArchive">
+      <path>
+        <dirset dir="archives" includes="*"/>
+      </path>
+    </foreach>
+  </target>
+
+  <!-- Pack archive -->
+  <target name="packArchive">
+    <basename property="name" file="${path}"/>
+    <zip destfile=".build/${name}.zip">
+      <fileset dir="archives/${name}" includes="**"/>
+    </zip>
+  </target>
+   
+  <!-- Sign webrcp -->
+  <target name="sign" depends="copy" description="Sign webrcp">
+    <signjar keystore="keystore" alias="imedic" storepass="password">
+      <fileset dir=".build" includes="webrcp.jar"/>
+    </signjar>
+  </target>
+  
+  <!-- Add build id as application version to JNLP-File -->
+  <target name="buildId" depends="copy" description="Add Build ID">
+    <tstamp>
+      <format property="buildId" pattern="yyyyMMddHHmmssSSS"/>
+    </tstamp>
+    <replace dir=".build" value="${buildId}" token="@buildId@">
+      <include name="*.jsp"/>
+    </replace>
+  </target>
+  
+  <!-- Create war -->
+  <target name="war" depends="sign,buildId" description="Create war">
+    <zip destfile="application.war">
+      <fileset dir=".build" includes="**"/>
+    </zip>
+  </target>
+</project>
