@@ -19,14 +19,14 @@
  
   <!-- Clean completely -->
   <target name="clean" description="Clean completey">
-    <delete dir=".build"/>
+    <delete dir="target"/>
     <delete file="application.war"/>
   </target>
 
   <!-- Copy everything to build directory -->
   <target name="copy" description="Copy everything to build directory">
-    <mkdir dir=".build"/>
-    <copy todir=".build">
+    <mkdir dir="target"/>
+    <copy todir="target">
       <fileset dir=".">
         <include name="WEB-INF/**"/>
 	<include name="webrcp.jar"/>
@@ -45,7 +45,7 @@
   <!-- Pack archive -->
   <target name="packArchive">
     <basename property="name" file="${path}"/>
-    <zip destfile=".build/${name}.zip">
+    <zip destfile="target/${name}.zip">
       <fileset dir="archives/${name}" includes="**"/>
     </zip>
   </target>
@@ -53,7 +53,7 @@
   <!-- Sign webrcp -->
   <target name="sign" depends="copy" description="Sign webrcp">
     <signjar keystore="keystore" alias="imedic" storepass="password">
-      <fileset dir=".build" includes="webrcp.jar"/>
+      <fileset dir="target" includes="webrcp.jar"/>
     </signjar>
   </target>
   
@@ -62,7 +62,7 @@
     <tstamp>
       <format property="buildId" pattern="yyyyMMddHHmmssSSS"/>
     </tstamp>
-    <replace dir=".build" value="${buildId}" token="@buildId@">
+    <replace dir="target" value="${buildId}" token="@buildId@">
       <include name="*.jsp"/>
     </replace>
   </target>
@@ -70,7 +70,7 @@
   <!-- Create war -->
   <target name="war" depends="sign,buildId" description="Create war">
     <zip destfile="application.war">
-      <fileset dir=".build" includes="**"/>
+      <fileset dir="target" includes="**"/>
     </zip>
   </target>
 </project>
