@@ -3,14 +3,14 @@
 	ANT build script for WebRCP template
 	Author: Daniel Mendler
 -->
-<project default="all" basedir=".">
+<project default="all" basedir="..">
 
   <propertyfile file="project.properties"/>
 
   <!-- Use ANT Contrib tasks -->
   <taskdef resource="net/sf/antcontrib/antlib.xml">
     <classpath>
-      <pathelement location="ant-contrib.jar"/>
+      <pathelement location="build/ant-contrib.jar"/>
     </classpath>
   </taskdef>
 
@@ -20,18 +20,17 @@
   <!-- Clean completely -->
   <target name="clean" description="Clean completey">
     <delete dir="target"/>
-    <delete file="application.war"/>
   </target>
 
   <!-- Copy everything to build directory -->
   <target name="copy" description="Copy everything to build directory">
-    <mkdir dir="target"/>
-    <copy todir="target">
-      <fileset dir=".">
+    <mkdir dir="target/content"/>
+    <copy todir="target/content">
+      <fileset dir="src/main/resources">
         <include name="WEB-INF/**"/>
-	<include name="webrcp.jar"/>
-	<include name="*.html"/>
-	<include name="*.jsp"/>
+      	<include name="webrcp.jar"/>
+      	<include name="*.html"/>
+      	<include name="*.jsp"/>
       </fileset>
     </copy>
     <foreach param="path"
@@ -52,8 +51,8 @@
    
   <!-- Sign webrcp -->
   <target name="sign" depends="copy" description="Sign webrcp">
-    <signjar keystore="keystore" alias="imedic" storepass="password">
-      <fileset dir="target" includes="webrcp.jar"/>
+    <signjar keystore="build/keystore" alias="imedic" storepass="password">
+      <fileset dir="target/content" includes="webrcp.jar"/>
     </signjar>
   </target>
   
@@ -62,15 +61,18 @@
     <tstamp>
       <format property="buildId" pattern="yyyyMMddHHmmssSSS"/>
     </tstamp>
-    <replace dir="target" value="${buildId}" token="@buildId@">
+    <replace dir="target/content" value="${buildId}" token="@buildId@">
       <include name="*.jsp"/>
     </replace>
   </target>
   
   <!-- Create war -->
   <target name="war" depends="sign,buildId" description="Create war">
-    <zip destfile="application.war">
-      <fileset dir="target" includes="**"/>
+    <zip destfile="target/application.war">
+      <fileset dir="target/content" includes="**"/>
     </zip>
   </target>
+  
+  
 </project>
+
