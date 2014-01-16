@@ -37,10 +37,16 @@
       	<include name="README.md"/>
       </fileset>
     </copy>
+  	<copy todir="target/content/archives">
+  	  <fileset dir="archives/repository/plugins">
+  	    <include name="*.jar"/>
+  	  </fileset>
+  	</copy>
     <foreach param="path"
              target="packArchive">
+      <!-- for unpacked plugins -->
       <path>
-        <dirset dir="archives" includes="*"/>
+        <dirset dir="archives/repository/plugins/" includes="*"/>
       </path>
     </foreach>
   </target>
@@ -57,6 +63,7 @@
   <target name="sign" depends="copy" description="Sign webrcp">
     <signjar keystore="buildwebstart/keystore" alias="imedic" storepass="password">
       <fileset dir="target/content" includes="webrcp.jar"/>
+      <fileset dir="target/content/archives" includes="ws4e.example*.jar"/>
     </signjar>
   </target>
   
