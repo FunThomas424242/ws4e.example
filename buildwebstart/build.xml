@@ -15,7 +15,7 @@
   </taskdef>
 
   <!-- Make all -->
-  <target name="all" depends="clean,copy,sign,war" description="Make all"/>
+  <target name="all" depends="clean,copy,packArchives,sign,war" description="Make all"/>
  
   <!-- Clean completely -->
   <target name="clean" description="Clean completey">
@@ -37,34 +37,30 @@
       	<include name="README.md"/>
       </fileset>
     </copy>
-  	<copy todir="target/content/archives">
-  	  <fileset dir="archives/repository/plugins">
-  	    <include name="*.jar"/>
+  	<mkdir dir="target/archives/plugins"/>
+  	<copy todir="target/archives/plugins">
+  	  <fileset dir="archives/repository/plugins/">
+  	    <include name="**/*.jar"/>
   	  </fileset>
   	</copy>
-    <foreach param="path"
-             target="packArchive">
-      <!-- for unpacked plugins -->
-      <path>
-        <dirset dir="archives/repository/plugins/" includes="*"/>
-      </path>
-    </foreach>
   </target>
 
-  <!-- Pack archive -->
-  <target name="packArchive">
-    <basename property="name" file="${path}"/>
-    <zip destfile="target/${name}.zip">
-      <fileset dir="archives/${name}" includes="**"/>
-    </zip>
-  </target>
+  
    
-  <!-- Sign webrcp -->
+  <!-- Sign webrcp and app -->
   <target name="sign" depends="copy" description="Sign webrcp">
     <signjar keystore="buildwebstart/keystore" alias="imedic" storepass="password">
       <fileset dir="target/content" includes="webrcp.jar"/>
-      <fileset dir="target/content/archives" includes="ws4e.example*.jar"/>
+      <fileset dir="target/archives/plugins" includes="ws4e.example*.jar"/>
     </signjar>
+  </target>
+	
+  <!-- Pack archive -->
+  <target name="packArchives" depends="sign">
+  	<mkdir dir="target/content/archives"/>
+    <zip destfile="target/content/archives/main.zip">
+      <fileset dir="target/archives/" includes="plugins/**"/>
+    </zip>
   </target>
   
   <!-- Add build id as application version to JNLP-File -->
