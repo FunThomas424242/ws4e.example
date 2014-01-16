@@ -12,8 +12,8 @@
     </children>
     <mainMenu xmi:id="_oAEQTH1lEeO47arYZeZyYQ" elementId="menu:org.eclipse.ui.main.menu">
       <children xsi:type="menu:Menu" xmi:id="_oAEQTX1lEeO47arYZeZyYQ" label="File">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_oAEQTn1lEeO47arYZeZyYQ" label="Open" iconURI="platform:/plugin/ws4e.example/icons/sample.png" command="_oAEQQ31lEeO47arYZeZyYQ"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_oAEQT31lEeO47arYZeZyYQ" label="Save" iconURI="platform:/plugin/ws4e.example/icons/save_edit.png" command="_oAEQRn1lEeO47arYZeZyYQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_oAEQTn1lEeO47arYZeZyYQ" label="Open" iconURI="platform:/plugin/ws4e.example/src/main/resources/icons/sample.png" command="_oAEQQ31lEeO47arYZeZyYQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_oAEQT31lEeO47arYZeZyYQ" label="Save" iconURI="platform:/plugin/ws4e.example/src/main/resources/icons/save_edit.png" command="_oAEQRn1lEeO47arYZeZyYQ"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_oAEQUH1lEeO47arYZeZyYQ" label="Quit" command="_oADpPH1lEeO47arYZeZyYQ"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_oAEQUX1lEeO47arYZeZyYQ" label="Help">
@@ -22,8 +22,8 @@
     </mainMenu>
     <trimBars xmi:id="_oAE3VX1lEeO47arYZeZyYQ">
       <children xsi:type="menu:ToolBar" xmi:id="_oAE3Vn1lEeO47arYZeZyYQ" elementId="toolbar:org.eclipse.ui.main.toolbar">
-        <children xsi:type="menu:HandledToolItem" xmi:id="_oAFeYH1lEeO47arYZeZyYQ" iconURI="platform:/plugin/ws4e.example/icons/sample.png" command="_oAEQQ31lEeO47arYZeZyYQ"/>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_oAFeYX1lEeO47arYZeZyYQ" iconURI="platform:/plugin/ws4e.example/icons/save_edit.png" command="_oAEQRn1lEeO47arYZeZyYQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_oAFeYH1lEeO47arYZeZyYQ" iconURI="platform:/plugin/ws4e.example/src/main/resources/icons/sample.png" command="_oAEQQ31lEeO47arYZeZyYQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_oAFeYX1lEeO47arYZeZyYQ" iconURI="platform:/plugin/ws4e.example/src/main/resources/icons/save_edit.png" command="_oAEQRn1lEeO47arYZeZyYQ"/>
       </children>
     </trimBars>
   </children>
