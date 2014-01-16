@@ -5,12 +5,12 @@
 -->
 <project default="all" basedir="..">
 
-  <propertyfile file="build/project.properties"/>
+  <propertyfile file="buildwebstart/project.properties"/>
 
   <!-- Use ANT Contrib tasks -->
   <taskdef resource="net/sf/antcontrib/antlib.xml">
     <classpath>
-      <pathelement location="build/ant-contrib.jar"/>
+      <pathelement location="buildwebstart/ant-contrib.jar"/>
     </classpath>
   </taskdef>
 
@@ -55,7 +55,7 @@
    
   <!-- Sign webrcp -->
   <target name="sign" depends="copy" description="Sign webrcp">
-    <signjar keystore="build/keystore" alias="imedic" storepass="password">
+    <signjar keystore="buildwebstart/keystore" alias="imedic" storepass="password">
       <fileset dir="target/content" includes="webrcp.jar"/>
     </signjar>
   </target>
