@@ -5,7 +5,7 @@
 -->
 <project default="all" basedir="..">
 
-  <propertyfile file="project.properties"/>
+  <propertyfile file="build/project.properties"/>
 
   <!-- Use ANT Contrib tasks -->
   <taskdef resource="net/sf/antcontrib/antlib.xml">
@@ -31,6 +31,10 @@
       	<include name="webrcp.jar"/>
       	<include name="*.html"/>
       	<include name="*.jsp"/>
+      </fileset>
+      <fileset dir=".">
+      	<include name="LICENSE"/>
+      	<include name="README.md"/>
       </fileset>
     </copy>
     <foreach param="path"
